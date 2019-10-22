@@ -559,7 +559,9 @@ void InspectableWebContentsImpl::ShowItemInFolder(
     return;
 
   base::FilePath path = base::FilePath::FromUTF8Unsafe(file_system_path);
-  platform_util::OpenItem(path);
+
+  // TODO(codebytere): figure out best apth for this
+  // platform_util::OpenPath(path);
 }
 
 void InspectableWebContentsImpl::SaveToFile(const std::string& url,

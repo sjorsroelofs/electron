@@ -9,6 +9,7 @@
 
 #include "base/callback_forward.h"
 #include "base/files/file_path.h"
+#include "base/optional.h"
 #include "build/build_config.h"
 
 #if defined(OS_WIN)
@@ -19,7 +20,7 @@ class GURL;
 
 namespace platform_util {
 
-typedef base::OnceCallback<void(const std::string&)> OpenExternalCallback;
+typedef base::OnceCallback<void(const std::string&)> OpenCallback;
 
 // Show the given file in a file manager. If possible, select the file.
 // Must be called from the UI thread.
@@ -27,7 +28,7 @@ void ShowItemInFolder(const base::FilePath& full_path);
 
 // Open the given file in the desktop's default manner.
 // Must be called from the UI thread.
-bool OpenItem(const base::FilePath& full_path);
+void OpenPath(const base::FilePath& full_path, OpenCallback callback);
 
 struct OpenExternalOptions {
   bool activate = true;
@@ -38,7 +39,7 @@ struct OpenExternalOptions {
 // (For example, mailto: URLs in the default mail user agent.)
 void OpenExternal(const GURL& url,
                   const OpenExternalOptions& options,
-                  OpenExternalCallback callback);
+                  OpenCallback callback);
 
 // Move a file to trash.
 bool MoveItemToTrash(const base::FilePath& full_path, bool delete_on_fail);
